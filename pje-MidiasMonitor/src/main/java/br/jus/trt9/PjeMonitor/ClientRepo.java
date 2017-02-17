@@ -1,6 +1,7 @@
 package br.jus.trt9.PjeMonitor;
 
-import java.io.Serializable;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,8 @@ import br.jus.trt9.PjeMonitor.Model.Client;
 que vem do spring-DATA-core
 */
 @Repository
-public interface ClientRepo extends CrudRepository<Client, Serializable>{
+public interface ClientRepo extends CrudRepository<Client, Integer> {
+	
+	
 	
 }

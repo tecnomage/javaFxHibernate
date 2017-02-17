@@ -3,16 +3,13 @@ package br.jus.trt9.PjeMonitor.view;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.jus.trt9.PjeMonitor.ClientRepo;
 import br.jus.trt9.PjeMonitor.MainApp;
 import br.jus.trt9.PjeMonitor.Model.Audiencia;
 import br.jus.trt9.PjeMonitor.Model.Client;
-import br.jus.trt9.PjeMonitor.dao.ClientDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,10 +18,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
 
-@Component
 public class MonitorPjeController {
 
 	@FXML
@@ -53,11 +48,13 @@ public class MonitorPjeController {
 	// referencia a aplicacao principal
 	private MainApp mainapp;
 
-	// FIXME
-	@Autowired(required = true)
-	ClientDao clientdao;
+	//FIXME
+	@Autowired
+	ClientRepo clientRepo;
+	
+	
 
-	public MonitorPjeController() {
+		public MonitorPjeController() {
 
 	}
 
@@ -120,11 +117,13 @@ public class MonitorPjeController {
 		// audTable.getSelectionModel().selectedItemProperty()
 		// .addListener((observable, oldValue, newValue)-> show);
 
-		/*BtnListaId.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-
-			mouseEvent();
-
-		});*/
+		/*
+		 * BtnListaId.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+		 * 
+		 * mouseEvent();
+		 * 
+		 * });
+		 */
 
 	}
 
@@ -149,10 +148,9 @@ public class MonitorPjeController {
 	// FIXME nao salva
 	// TODO em caso de erro enviar msg de erro
 	@FXML
-	private void mouseEvent() {
-		 Client client = new Client("cta 12344", "18 vt");
-		 System.out.println(client);
-		 clientdao.save(client);
+	public void mouseEvent() {
+		Client client = new Client(1, "cta 12344", "18 vt");
+		clientRepo.save(client);
 
 	}
 

@@ -14,7 +14,7 @@ import org.springframework.data.repository.RepositoryDefinition;
  * classe que lista as máquinas 
 que utilizam o fidelis*/
 @Entity
-public class Client  implements Serializable {
+public class Client implements Serializable {
 
 	/**
 	 * 
@@ -30,6 +30,17 @@ public class Client  implements Serializable {
 
 	@Column
 	private String vara;
+	
+	public Client() {
+		
+	}
+
+	public Client(Integer id, String tombo, String vara) {
+		super();
+		this.id = id;
+		this.tombo = tombo;
+		this.vara = vara;
+	}
 
 	public Client(String tombo, String vara) {
 		this.tombo = tombo;
