@@ -10,20 +10,20 @@ import br.jus.trt9.PjeMonitor.Model.Client;
 public class HibernateUtil {
 
 	
-	public static void main(String[] args) {
-		
-		Session session = getSession();
-		Transaction tx = session.beginTransaction();
-		
-		
-		Client client = new Client("123", "18 vt");
-		session.save(client);
-		
-		tx.commit();
-		session.close();
-		
-		
-	}
+//	public static void main(String[] args) {
+//		
+//		Session session = getSession();
+//		Transaction tx = session.beginTransaction();
+//		
+//		
+//		Client client = new Client("123", "18 vt");
+//		session.save(client);
+//		
+//		tx.commit();
+//		session.close();
+//		
+//		
+//	}
 	
 	
 	

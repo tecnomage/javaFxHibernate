@@ -33,22 +33,12 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	private static Session session = HibernateUtil.getSession();
 
 	private ObservableList<Audiencia> audData = FXCollections.observableArrayList();
-	
-	
+
 	public static void main(String[] args) {
 
-			Session session = HibernateUtil.getSession();
-			Transaction tx = session.beginTransaction();
-			Client client = new Client("321", "18 vt");
-
-			session.save(client);
-			tx.commit();
-			session.close();
-		
-			launch(args);
+		launch(args);
 
 	}
 
@@ -71,10 +61,6 @@ public class MainApp extends Application {
 
 		showTableAudiencia();
 
-	}
-
-	public void stop() throws Exception {
-		springContext.close();
 	}
 
 	public MainApp() {

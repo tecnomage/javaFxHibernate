@@ -9,7 +9,7 @@
 	<configs>
 	</configs>
 	<autoconfigs>
-		<config>java:br.jus.trt9.PjeMonitor.MainApp</config>
+		<config>java:br.jus.trt9.PjeMonitor.LaunchClass</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

@@ -2,14 +2,10 @@ package br.jus.trt9.PjeMonitor.view;
 
 import java.time.LocalDate;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-import br.jus.trt9.PjeMonitor.ClientRepo;
 import br.jus.trt9.PjeMonitor.MainApp;
 import br.jus.trt9.PjeMonitor.Model.Audiencia;
 import br.jus.trt9.PjeMonitor.Model.Client;
+import br.jus.trt9.PjeMonitor.dao.ClientDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -48,11 +44,7 @@ public class MonitorPjeController {
 	// referencia a aplicacao principal
 	private MainApp mainapp;
 
-	//FIXME
-	@Autowired
-	ClientRepo clientRepo;
-	
-	
+	private ClientDao clientDao = new ClientDao();
 
 		public MonitorPjeController() {
 
@@ -107,6 +99,12 @@ public class MonitorPjeController {
 			}
 		});
 
+	
+		BtnListaId.setOnAction( a -> {
+			clientDao.salva(new Client("cta444", "11 vt"));
+		});
+	
+	
 	}
 
 	public void setMainApp(MainApp mainApp) {
@@ -117,12 +115,13 @@ public class MonitorPjeController {
 	}
 
 	
-	// FIXME nao salva
+	
+	
 	// TODO em caso de erro enviar msg de erro
 	@FXML
 	public void mouseEvent() {
 		Client client = new Client(1, "cta 12344", "18 vt");
-		clientRepo.save(client);
+		clientDao.salva(client);
 
 	}
 
