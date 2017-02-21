@@ -12,7 +12,7 @@ import br.jus.trt9.PjeMonitor.Model.Client;
 que vem do spring-DATA-core
 */
 @Repository
-public interface ClientRepo extends CrudRepository<Client, Integer> {
+public interface ClientRepo  {
 	
 	
 	

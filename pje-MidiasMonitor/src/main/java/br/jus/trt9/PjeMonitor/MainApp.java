@@ -2,17 +2,14 @@ package br.jus.trt9.PjeMonitor;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Arrays;
 
-import org.hibernate.cfg.annotations.reflection.ClassLoaderAccessLazyImpl;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 
 import br.jus.trt9.PjeMonitor.Model.Audiencia;
+import br.jus.trt9.PjeMonitor.Model.Client;
+import br.jus.trt9.PjeMonitor.Util.HibernateUtil;
 import br.jus.trt9.PjeMonitor.view.MonitorPjeController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -32,60 +29,45 @@ import javafx.stage.Stage;
  * @EnableAutoConfiguration
  */
 
-//FIXME esse warning na inicialização
-/* Unable to proxy method [public final void br.jus.trt9.PjeMonitor.dao.Ge
-nericDao.setClazz(java.lang.Class)] because it is final: All calls to this method via a proxy will NOT be routed to the target instance.*/
-@SpringBootApplication
-@ComponentScan(basePackages = "br.jus.trt9.PjeMonitor")
 public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private static Session session = HibernateUtil.getSession();
 
 	private ObservableList<Audiencia> audData = FXCollections.observableArrayList();
-	private ConfigurableApplicationContext springContext;
-	private static String[] args;
-
+	
+	
 	public static void main(String[] args) {
-		Application.launch(args);
+
+			Session session = HibernateUtil.getSession();
+			Transaction tx = session.beginTransaction();
+			Client client = new Client("321", "18 vt");
+
+			session.save(client);
+			tx.commit();
+			session.close();
+		
+			launch(args);
+
 	}
 
 	@Override
 	public void init() throws Exception {
 		// applicationContext.ge3tAutowireCapableBeanFactory().autowireBean(this);
 
-		try {
-			springContext = SpringApplication.run(MainApp.class);
-			// Load root layout from fxml file.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
-			MonitorPjeController controller = loader.getController();
-			controller.setMainApp(this);
-			//loader.setControllerFactory(springContext::getBean);
-			// problema do classLoader do javaFX
-			//loader.setClassLoader(this.getClass().getClassLoader());
-			  
-			// Show the scene containing the root layout.
-			/*
-			 * Scene scene = new Scene(rootLayout);
-			 * primaryStage.setScene(scene); primaryStage.show();
-			 */
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
 
-		primaryStage.setScene(new Scene(rootLayout));
-		primaryStage.show();
-		// this.primaryStage = primaryStage;
-		// this.primaryStage.setTitle("Pje Midias Monitor");
+		// primaryStage.setScene(new Scene(rootLayout));
+		// primaryStage.show();
 
-		// initRootLayout();
+		this.primaryStage = primaryStage;
+		this.primaryStage.setTitle("Pje Midias Monitor");
+
+		initRootLayout();
 
 		showTableAudiencia();
 
@@ -96,7 +78,6 @@ public class MainApp extends Application {
 	}
 
 	public MainApp() {
-
 		audData.add(new Audiencia("12123123213213", LocalDate.now(), "sim"));
 		audData.add(new Audiencia("22222222222222", LocalDate.now(), "nao"));
 		audData.add(new Audiencia("22222222222222", LocalDate.now(), "nao"));
@@ -112,26 +93,25 @@ public class MainApp extends Application {
 	/**
 	 * Initializes the root layout.
 	 */
+	public void initRootLayout() {
+		try {
+			// Load root layout from fxml file.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+			rootLayout = (BorderPane) loader.load();
 
-	// public void initRootLayout() {
-	// try {
-	// // Load root layout from fxml file.
-	// FXMLLoader loader = new FXMLLoader();
-	// loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-	// rootLayout = (BorderPane) loader.load();
-	//
-	// // problema do classLoader do javaFX
-	// loader.setClassLoader(this.getClass().getClassLoader());
-	//
-	// // Show the scene containing the root layout.
-	// Scene scene = new Scene(rootLayout);
-	// primaryStage.setScene(scene);
-	// primaryStage.show();
-	//
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// }
+			// problema do classLoader do javaFX
+			loader.setClassLoader(this.getClass().getClassLoader());
+
+			// Show the scene containing the root layout.
+			Scene scene = new Scene(rootLayout);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void showTableAudiencia() {
 		try {
@@ -140,9 +120,9 @@ public class MainApp extends Application {
 			loader.setLocation(MainApp.class.getResource("view/visao.fxml"));
 			AnchorPane TableOverview = (AnchorPane) loader.load();
 
-			loader.setControllerFactory(springContext::getBean);
+			// loader.setControllerFactory(springContext::getBean);
 
-			// Set person overview into the center of root layout.	
+			// Set person overview into the center of root layout.
 			rootLayout.setCenter(TableOverview);
 
 			// Give the controller acckess to the main app.

@@ -107,24 +107,6 @@ public class MonitorPjeController {
 			}
 		});
 
-		// clientcomboBox.setOnAction((event) -> {
-		// selectedPerson = myComboBox.getSelectionModel().getSelectedItem();
-		// outputTextArea.appendText("ComboBox Action (selected: " +
-		// selectedPerson.toString() + ")\n");
-		// });
-
-		// TODO setar para o botao da view
-		// audTable.getSelectionModel().selectedItemProperty()
-		// .addListener((observable, oldValue, newValue)-> show);
-
-		/*
-		 * BtnListaId.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-		 * 
-		 * mouseEvent();
-		 * 
-		 * });
-		 */
-
 	}
 
 	public void setMainApp(MainApp mainApp) {
@@ -134,17 +116,7 @@ public class MonitorPjeController {
 
 	}
 
-	/*
-	 * TODO nesse método deve ser buscado uma entidade Client para editar os
-	 * dados da máquina de audiência
-	 */
-	/*
-	 * @FXML private void EditaClient(ActionEvent e) {
-	 * System.out.println("botao listar clicado");
-	 * 
-	 * }
-	 */
-
+	
 	// FIXME nao salva
 	// TODO em caso de erro enviar msg de erro
 	@FXML

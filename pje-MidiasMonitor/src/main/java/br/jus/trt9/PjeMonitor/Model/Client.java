@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.springframework.data.repository.RepositoryDefinition;
-
 /*@
  * classe que lista as máquinas 
 que utilizam o fidelis*/
@@ -22,7 +20,7 @@ public class Client implements Serializable {
 	private static final long serialVersionUID = -8490813267291292074L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(nullable = false)
